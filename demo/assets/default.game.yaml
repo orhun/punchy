@@ -1,8 +1,10 @@
 start_level: beach/beach.level.yaml
 camera_height: 448
+# Distance of the rightmost player from the center of the camera, after which the camera moves.
+# For simplicity, this value can also be used for movement limitation calculations.
+camera_move_right_boundary: 150.
 
 main_menu:
-  title: "Fish Fight\nPunchy"
   title_font:
     family: ark
     color: [0, 0, 0]
@@ -11,6 +13,182 @@ main_menu:
   background_image:
     image: ui/main-menu-background.png
     image_size: [1919, 1027]
+
+  music: ui/Fishycuffs [title screen].ogg
+
+default_input_maps:
+  players:
+    # Player 1
+    - Move:
+      - VirtualDPad:
+          up:
+            Keyboard: W
+          down:
+            Keyboard: S
+          left:
+            Keyboard: A
+          right:
+            Keyboard: D
+      - VirtualDPad:
+          up:
+            GamepadButton: DPadUp
+          down:
+            GamepadButton: DPadDown
+          left:
+            GamepadButton: DPadLeft
+          right:
+            GamepadButton: DPadRight
+      - Single:
+          DualGamepadAxis:
+            x_axis: LeftStickX
+            y_axis: LeftStickY
+            x_positive_low: 0.1
+            x_negative_low: -0.1
+            y_positive_low: 0.1
+            y_negative_low: -0.1
+      FlopAttack:
+        - Single:
+            Keyboard: Space
+        - Single:
+            GamepadButton: South
+      Throw:
+        - Single:
+            Keyboard: C
+        - Single:
+            GamepadButton: West
+      Shoot:
+        - Single:
+            Keyboard: V
+        - Single:
+            GamepadButton: East
+    # Player 2
+    - Move:
+      - VirtualDPad:
+          up:
+            Keyboard: Up
+          down:
+            Keyboard: Down
+          left:
+            Keyboard: Left
+          right:
+            Keyboard: Right
+      - Single:
+          DualGamepadAxis:
+            x_axis: LeftStickX
+            y_axis: LeftStickY
+            x_positive_low: 0.1
+            x_negative_low: -0.1
+            y_positive_low: 0.1
+            y_negative_low: -0.1
+      - VirtualDPad:
+          up:
+            GamepadButton: DPadUp
+          down:
+            GamepadButton: DPadDown
+          left:
+            GamepadButton: DPadLeft
+          right:
+            GamepadButton: DPadRight
+      FlopAttack:
+        - Single:
+            Keyboard: Comma
+        - Single:
+            GamepadButton: South
+      Throw:
+        - Single:
+            Keyboard: Period
+        - Single:
+            GamepadButton: West
+      Shoot:
+        - Single:
+            Keyboard: RShift
+        - Single:
+            GamepadButton: East
+
+  camera:
+    Up:
+      - Chord:
+          - Keyboard: Up
+          - Keyboard: LControl
+    Down:
+      - Chord:
+          - Keyboard: Down
+          - Keyboard: LControl
+    Left:
+      - Chord:
+          - Keyboard: Left
+          - Keyboard: LControl
+    Right:
+      - Chord:
+          - Keyboard: Right
+          - Keyboard: LControl
+    ZoomIn:
+      - Chord:
+          - Keyboard: Equals
+          - Keyboard: LControl
+    ZoomOut:
+      - Chord:
+          - Keyboard: Minus
+          - Keyboard: LControl
+
+  menu:
+    Confirm:
+      - Single:
+          GamepadButton: South
+      - Single:
+          GamepadButton: Start
+    Forward:
+      - Single:
+          Keyboard: Down
+      - Single:
+          Keyboard: Right
+      - Single:
+          GamepadButton: DPadDown
+      - Single:
+          GamepadButton: DPadRight
+      - Single:
+          GamepadButton: Select
+      - Single:
+          SingleGamepadAxis:
+            axis: LeftStickY
+            positive_low: 1.0
+            negative_low: -0.5
+      - Single:
+          SingleGamepadAxis:
+            axis: LeftStickX
+            negative_low: -1.0
+            positive_low: 0.5
+    Backward:
+      - Single:
+          Keyboard: Left
+      - Single:
+          Keyboard: Up
+      - Single:
+          GamepadButton: DPadLeft
+      - Single:
+          GamepadButton: DPadUp
+      - Single:
+          SingleGamepadAxis:
+            axis: LeftStickY
+            negative_low: -1.0
+            positive_low: 0.5
+      - Single:
+          SingleGamepadAxis:
+            axis: LeftStickX
+            negative_low: -0.5
+            positive_low: 1.0
+    Pause:
+      - Single:
+          Keyboard: Escape
+      - Single:
+          Keyboard: P
+      - Single:
+          GamepadButton: Start
+    ToggleFullscreen:
+      - Single:
+          Keyboard: F11
+      - Single:
+          GamepadButton: Mode
 
 ui_theme:
   font_families:
@@ -92,6 +270,15 @@ ui_theme:
             right: 5
             left: 5
           scale: 3
+        focused:
+          image: ui/green-button-focused.png
+          image_size: [14, 14]
+          border_size:
+            top: 5
+            bottom: 5
+            right: 5
+            left: 5
+          scale: 3
         clicked:
           image: ui/green-button-down.png
           image_size: [14, 14]
@@ -122,6 +309,15 @@ ui_theme:
             right: 5
             left: 5
           scale: 2
+        focused:
+          image: ui/green-button-focused.png
+          image_size: [14, 14]
+          border_size:
+            top: 5
+            bottom: 5
+            right: 5
+            left: 5
+          scale: 2
         clicked:
           image: ui/green-button-down.png
           image_size: [14, 14]
@@ -131,3 +327,11 @@ ui_theme:
             right: 5
             left: 5
           scale: 2
+
+translations:
+  # This is the locale that we will fallback to if the selected locale doesn't have
+  # translation for a certain message.
+  default_locale: en-US
+  locales:
+    - locales/en-US/en-US.ftl.yml
+    - locales/fr-FR/fr-FR.ftl.yml
